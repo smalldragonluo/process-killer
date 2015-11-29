@@ -59,63 +59,68 @@ module.exports = function(query) {
       }
 
       for (var i = 0; i < rows.length; i++) {
-        if (rows[i]) {
-          var fields = rows[i].match(/([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+(.+)/);
-          var item = {
-            pid: fields[1],
-            tt: fields[2],
-            time: fields[3],
-            name: fields[4],
-            // 有可能会出现在 processMap 中找不到对应进程号的情况，待寻找原因
-            command: processMap[fields[1]] && processMap[fields[1]].command || '',
-            icon: './86185AA6-ABD0-41DD-B98E-23A096E5310F.png'
-          };
+        try {
+          if (rows[i]) {
+            var fields = rows[i].match(/([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+(.+)/);
+            var item = {
+              pid: fields[1],
+              tt: fields[2],
+              time: fields[3],
+              name: fields[4],
+              // 有可能会出现在 processMap 中找不到对应进程号的情况，待寻找原因
+              command: processMap[fields[1]] && processMap[fields[1]].command || '',
+              icon: './86185AA6-ABD0-41DD-B98E-23A096E5310F.png'
+            };
 
-          // 如果是 app
-          var suffixIndex = processMap[fields[1]].command.indexOf('.app/Contents');
-          if (suffixIndex !== -1) {
-            // 寻找 app icon
-            var appContentsPath = processMap[fields[1]].command.substring(0, suffixIndex + 13);
+            // 如果是 app
+            var suffixIndex = processMap[fields[1]].command.indexOf('.app/Contents');
+            if (suffixIndex !== -1) {
+              // 寻找 app icon
+              var appContentsPath = processMap[fields[1]].command.substring(0, suffixIndex + 13);
 
-            try {
-              // 最短 icns 文件并匹配 query 的路径
-              var masterIconPath;
-              // 最短 icns 文件路径
-              var secondaryIconPath;
+              try {
+                // 最短 icns 文件并匹配 query 的路径
+                var masterIconPath;
+                // 最短 icns 文件路径
+                var secondaryIconPath;
 
-              traverseDirByLayer(appContentsPath, function(fileName, _path, stats, levelCount) {
-                // 大于 10 层不找了
-                if (levelCount > 10) {
-                  return false;
-                }
-                var filePath = path.join(_path, fileName);
-
-                if (fileName.indexOf('.icns') !== -1 && stats.isFile()) {
-                  if (!secondaryIconPath || secondaryIconPath.length > filePath) {
-                    secondaryIconPath = filePath;
+                traverseDirByLayer(appContentsPath, function(fileName, _path, stats, levelCount) {
+                  // 大于 10 层不找了
+                  if (levelCount > 10) {
+                    return false;
                   }
+                  var filePath = path.join(_path, fileName);
 
-                  if (fileName.indexOf(query) !== -1 && (!masterIconPath || masterIconPath.length > filePath)) {
-                    masterIconPath = path.join(_path, fileName);
-                  }
+                  if (fileName.indexOf('.icns') !== -1 && stats.isFile()) {
+                    if (!secondaryIconPath || secondaryIconPath.length > filePath) {
+                      secondaryIconPath = filePath;
+                    }
 
-                  for(var j = 0; j < iconNames.length; j++) {
-                    if(fileName.indexOf(iconNames[j]) !== -1) {
+                    if (fileName.indexOf(query) !== -1 && (!masterIconPath || masterIconPath.length > filePath)) {
                       masterIconPath = path.join(_path, fileName);
-                      return false;
+                    }
+
+                    for(var j = 0; j < iconNames.length; j++) {
+                      if(fileName.indexOf(iconNames[j]) !== -1) {
+                        masterIconPath = path.join(_path, fileName);
+                        return false;
+                      }
                     }
                   }
-                }
-              });
+                });
 
-              item.icon = masterIconPath || secondaryIconPath || './86185AA6-ABD0-41DD-B98E-23A096E5310F.png';
-              masterIconPath = secondaryIconPath = undefined;
-            } catch (e) {
-              // 某些特殊软件，例如钉钉，可能会因为乱码而找不到这个路径
+                item.icon = masterIconPath || secondaryIconPath || './86185AA6-ABD0-41DD-B98E-23A096E5310F.png';
+                masterIconPath = secondaryIconPath = undefined;
+              } catch (e) {
+                // 某些特殊软件，例如钉钉，可能会因为乱码而找不到这个路径
+                throw 'not a valid path';
+              }
             }
-          }
 
-          items.push(item);
+            items.push(item);
+          }
+        } catch (e) {
+          // 有可能会出现在 processMap 中找不到对应进程号的情况，待寻找原因
         }
       }
       xtpl.renderFile('./processItems.xtpl', {
