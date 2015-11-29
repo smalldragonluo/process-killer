@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<items>
+  {{#each(items)}}
+  <item uid="{{name}}" arg="{{pid}}" valid="yes">
+    <title>{{name}}</title>
+    <subtitle>{{command}}</subtitle>
+    <icon>{{icon}}</icon>
+  </item>
+  {{/each}}
+</items>

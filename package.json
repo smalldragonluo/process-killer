@@ -1,0 +1,16 @@
+{
+  "name": "workerflow-process-killer",
+  "version": "1.0.0",
+  "description": "kill processes by name",
+  "author": "smalldragonluo",
+  "license": "GPLv2",
+  "main": "processFilter.js",
+  "dependencies": {
+    "iconv-lite": "~0.4.13",
+    "xtemplate": "~4.3.1",
+    "xtpl": "~3.2.0"
+  },
+  "scripts": {
+    "dev": "node processFilter.js"
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<items>
+  <item uid="1PM" arg="basic" valid="yes">
+    <title>sss</title>
+    <subtitle>Project ddasdadasd</subtitle>
+    <icon>icon.png</icon>
+  </item>
+  <item uid="2PM" arg="backbone" valid="yes">
+    <title>Backbone HTML Site</title>
+    <subtitle>Project Manager</subtitle>
+    <icon>icon.png</icon>
+  </item>
+</items>

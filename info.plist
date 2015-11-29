@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>86185AA6-ABD0-41DD-B98E-23A096E5310F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>573F13DE-1F81-49F0-AF9F-2C50B61D55D5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>smalldragonluo</string>
+	<key>description</key>
+	<string>kill processes by name or port</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Process Killer</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>keyword</key>
+				<string>kill</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>正在查找进程...</string>
+				<key>script</key>
+				<string>/usr/local/bin/node &lt;&lt;-'CODE'
+require("./processFilter")("{query}");
+CODE</string>
+				<key>subtext</key>
+				<string>请输入进程名或端口号（参数 -i ）</string>
+				<key>title</key>
+				<string>杀死进程</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>86185AA6-ABD0-41DD-B98E-23A096E5310F</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>/usr/local/bin/node &lt;&lt;-'CODE'
+require("./action")("{query}");
+CODE</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>573F13DE-1F81-49F0-AF9F-2C50B61D55D5</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>hehe, nothing to read~</string>
+	<key>uidata</key>
+	<dict>
+		<key>573F13DE-1F81-49F0-AF9F-2C50B61D55D5</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>86185AA6-ABD0-41DD-B98E-23A096E5310F</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
