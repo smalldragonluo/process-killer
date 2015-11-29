@@ -66,7 +66,8 @@ module.exports = function(query) {
             time: fields[3],
             name: fields[4],
             // 有可能会出现在 processMap 中找不到对应进程号的情况，待寻找原因
-            command: processMap[fields[1]] && processMap[fields[1]].command || ''
+            command: processMap[fields[1]] && processMap[fields[1]].command || '',
+            icon: './86185AA6-ABD0-41DD-B98E-23A096E5310F.png'
           };
 
           // 如果是 app
@@ -82,8 +83,8 @@ module.exports = function(query) {
               var secondaryIconPath;
 
               traverseDirByLayer(appContentsPath, function(fileName, _path, stats, levelCount) {
-                // 大于 3 层不找了
-                if (levelCount > 3) {
+                // 大于 10 层不找了
+                if (levelCount > 10) {
                   return false;
                 }
                 var filePath = path.join(_path, fileName);
@@ -100,6 +101,7 @@ module.exports = function(query) {
               });
 
               item.icon = masterIconPath || secondaryIconPath || './86185AA6-ABD0-41DD-B98E-23A096E5310F.png';
+              masterIconPath = secondaryIconPath = undefined;
             } catch (e) {
               // 某些特殊软件，例如钉钉，可能会因为乱码而找不到这个路径
             }
