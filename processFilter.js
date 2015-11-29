@@ -64,7 +64,6 @@ module.exports = function(query) {
             pid: fields[1],
             tt: fields[2],
             time: fields[3],
-            icon: './icon.png',
             name: fields[4],
             // 有可能会出现在 processMap 中找不到对应进程号的情况，待寻找原因
             command: processMap[fields[1]] && processMap[fields[1]].command || ''
@@ -100,7 +99,7 @@ module.exports = function(query) {
                 }
               });
 
-              item.icon = masterIconPath || secondaryIconPath || './icon.png';
+              item.icon = masterIconPath || secondaryIconPath || './86185AA6-ABD0-41DD-B98E-23A096E5310F.png';
             } catch (e) {
               // 某些特殊软件，例如钉钉，可能会因为乱码而找不到这个路径
             }
