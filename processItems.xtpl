@@ -4,7 +4,7 @@
   <item uid="{{name}}" arg="{{pid}}" valid="yes">
     <title>{{name}}</title>
     <subtitle>{{command}}</subtitle>
-    <icon>{{icon}}</icon>
+    <icon {{#if(isApp)}}type="fileicon"{{/if}}>{{icon}}</icon>
   </item>
   {{/each}}
 </items>
