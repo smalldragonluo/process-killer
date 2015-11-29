@@ -9,6 +9,7 @@ var exec = require('child_process').exec;
 var iconv = require('iconv-lite');
 var targetEncoding = 'utf8';
 var originEncoding = 'binary';
+var iconNames = require('./iconNames');
 
 module.exports = function(query) {
   // 渲染到 Alfred 的列表
@@ -96,6 +97,13 @@ module.exports = function(query) {
 
                   if (fileName.indexOf(query) !== -1 && (!masterIconPath || masterIconPath.length > filePath)) {
                     masterIconPath = path.join(_path, fileName);
+                  }
+
+                  for(var j = 0; j < iconNames.length; j++) {
+                    if(fileName.indexOf(iconNames[j]) !== -1) {
+                      masterIconPath = path.join(_path, fileName);
+                      return false;
+                    }
                   }
                 }
               });
