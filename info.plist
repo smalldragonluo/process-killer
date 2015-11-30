@@ -54,7 +54,7 @@
 require("./processFilter")("{query}");
 CODE</string>
 				<key>subtext</key>
-				<string>请输入进程名或端口号（参数 -i ）</string>
+				<string>请输入进程名、pid 或 -i 端口号</string>
 				<key>title</key>
 				<string>杀死进程</string>
 				<key>type</key>
@@ -107,6 +107,6 @@ CODE</string>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>www.smalldragonluo.com</string>
 </dict>
 </plist>
