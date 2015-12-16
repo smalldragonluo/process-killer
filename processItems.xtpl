@@ -3,7 +3,7 @@
   {{#each(items)}}
   <item uid="{{name}}" arg="{{pid}}" valid="yes">
     <title>{{name}}</title>
-    <subtitle>{{args}}</subtitle>
+    <subtitle>{{pid}} {{args}}</subtitle>
     <icon {{#if(isApp)}}type="fileicon"{{/if}}>{{icon}}</icon>
   </item>
   {{/each}}
